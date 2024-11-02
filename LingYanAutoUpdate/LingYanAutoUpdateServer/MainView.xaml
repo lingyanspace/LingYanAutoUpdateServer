@@ -1,0 +1,62 @@
+﻿<wd:Window
+    x:Class="LingYanAutoUpdateServer.MainView"
+    xmlns="http://schemas.microsoft.com/winfx/2006/xaml/presentation"
+    xmlns:x="http://schemas.microsoft.com/winfx/2006/xaml"
+    xmlns:d="http://schemas.microsoft.com/expression/blend/2008"
+    xmlns:local="clr-namespace:LingYanAutoUpdateServer"
+    xmlns:mc="http://schemas.openxmlformats.org/markup-compatibility/2006"
+    xmlns:wd="https://github.com/WPFDevelopersOrg/WPFDevelopers"
+    Title="灵燕空间云升级"
+    Width="300"
+    Height="410"
+    MinWidth="300"
+    MinHeight="410"
+    FontSize="14"
+    ShowInTaskbar="False"
+    Topmost="True"
+    WindowStartupLocation="CenterScreen"
+    WindowStyle="ToolWindow"
+    mc:Ignorable="d">
+    <StackPanel>
+        <wd:CycleLoading
+            Width="280"
+            LoadTitle="{Binding CurrentDecription}"
+            Value="{Binding DownloadModelInter.CuurentProgress}">
+            <TextBlock Margin="0,5,0,0" FontSize="15">
+                <Bold>
+                    <Run Text="{Binding DownloadModelInter.HasDownloadValue, StringFormat={}{0:0.00}}" />
+                </Bold>
+                <Run Text="MB/" />
+                <Bold>
+                    <Run Text="{Binding DownloadModelInter.TotalDownloadValue, StringFormat={}{0:0.00}}" />
+                </Bold>
+                <Run Text="MB" />
+            </TextBlock>
+        </wd:CycleLoading>
+        <TextBlock
+            Margin="5,10,5,0"
+            VerticalAlignment="Center"
+            FontWeight="Bold">
+            <Run Text="本地安装版本" />
+            <Run Text="{Binding LocalVersion}" />
+            <Run Text="=&gt;线上最新版本" />
+            <Run Text="{Binding ServerVersion}" />
+        </TextBlock>
+        <Grid Margin="5,10" wd:Mask.IsShow="{Binding ShowDownLoading}">
+            <TextBlock
+                HorizontalAlignment="Left"
+                VerticalAlignment="Center"
+                FontWeight="Bold">
+                <Run Text="{Binding DownloadModelInter.DownloadSpeed, StringFormat={}{0:0.00}}" />
+                <Run Text="MB/秒" />
+            </TextBlock>
+            <Button
+                Padding="30,8"
+                HorizontalAlignment="Right"
+                Command="{Binding ToDownloadCommand}"
+                Content="立即更新"
+                Foreground="Black"
+                Style="{StaticResource WD.WarningPrimaryButton}" />
+        </Grid>
+    </StackPanel>
+</wd:Window>

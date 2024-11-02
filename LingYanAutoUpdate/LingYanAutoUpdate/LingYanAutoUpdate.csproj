@@ -1,0 +1,22 @@
+﻿<Project Sdk="Microsoft.NET.Sdk">
+  <PropertyGroup>
+    <TargetFramework>netstandard2.0</TargetFramework>
+    <OutputType>Library</OutputType>
+    <GenerateAssemblyInfo>false</GenerateAssemblyInfo>
+    <AssemblyTitle>LingYanAutoUpdate</AssemblyTitle>
+    <Company>P R C</Company>
+    <Product>LingYanAutoUpdate</Product>
+    <Copyright>Copyright © P R C 2024</Copyright>
+    <AssemblyVersion>1.0.0.0</AssemblyVersion>
+    <FileVersion>1.0.0.0</FileVersion>
+  </PropertyGroup>
+  <ItemGroup>
+    <PackageReference Include="Microsoft.CSharp" />
+    <PackageReference Include="System.Data.DataSetExtensions" />
+  </ItemGroup>
+  <ItemGroup>
+    <content Include="UpdateAppFloder\**">
+      <CopyToOutputDirectory>Always</CopyToOutputDirectory>
+    </content>
+  </ItemGroup>
+</Project>
