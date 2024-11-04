@@ -73,14 +73,6 @@ namespace LingYanAutoUpdateServer
                 this.CurrentDecription = "解压升级包...";
                 await Task.Delay(200);
                 AutoUpdateHelper.UpdateMainApp(AutoUpdateHelper.StartApp, localUrl, AutoUpdateHelper.LocalVersionUrl, AutoUpdateHelper.ServerVersion);
-                if (downloadReuslt)
-                {
-                    WPFDevelopers.Controls.MessageBox.Show("更新成功，即将重启软件", "通知", MessageBoxButton.OK, MessageBoxImage.Information);
-                }
-                else
-                {
-                    WPFDevelopers.Controls.MessageBox.Show("更新失败,跳过继续", "通知", MessageBoxButton.OK, MessageBoxImage.Warning);
-                }
             }
             catch (Exception ex)
             {
