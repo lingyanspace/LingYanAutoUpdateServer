@@ -1,6 +1,7 @@
-﻿using System.Diagnostics;
+﻿using System;
+using System.Diagnostics;
 using System.IO;
-using System.Reflection;
+using System.Linq;
 
 namespace LingYanAutoUpdate
 {
@@ -31,7 +32,7 @@ namespace LingYanAutoUpdate
         public static void ToRun()
         {
             var args = string.Join(" ", new string[] { NetworkUrl, StartApp, LocalVersionUrl, LocalVersion, ServerVersion });
-            var startApp = Path.Combine(Path.GetDirectoryName(Assembly.GetExecutingAssembly().Location), "UpdateAppFloder", "LingYanAutoUpdateServer.exe");
+            var startApp = Directory.GetFiles(Path.GetDirectoryName(AppDomain.CurrentDomain.BaseDirectory), "LingYanAutoUpdateServer.exe",SearchOption.AllDirectories).FirstOrDefault();
             Process process = new Process();//创建进程对象    
             ProcessStartInfo startInfo = new ProcessStartInfo(startApp, args);
             process.StartInfo = startInfo;

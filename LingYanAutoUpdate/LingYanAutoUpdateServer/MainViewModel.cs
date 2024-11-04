@@ -47,6 +47,7 @@ namespace LingYanAutoUpdateServer
         public AsyncRelayCommand ToDownloadCommand { get; set; }
         public MainViewModel()
         {
+            this.ShowDownLoading = true;
             this.DownloadModelInter = new DownloadModel();
             this.ToDownloadCommand = new AsyncRelayCommand(ToDownloadCommandMethod);
             this.LocalVersion = AutoUpdateHelper.LocalVersion;
@@ -58,7 +59,7 @@ namespace LingYanAutoUpdateServer
         {
             try
             {
-                this.ShowDownLoading = true;
+                this.ShowDownLoading = false;
                 this.CurrentDecription = "下载升级包...";
                 var downloadAction = new Action<double, double, double, double>((t1, t2, t3, t4) =>
                 {
@@ -87,7 +88,7 @@ namespace LingYanAutoUpdateServer
             }
             finally
             {
-                this.ShowDownLoading = false;
+                this.ShowDownLoading = true;
                 Environment.Exit(0);
             }
         }

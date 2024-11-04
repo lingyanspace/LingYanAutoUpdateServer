@@ -17,7 +17,7 @@
     WindowStartupLocation="CenterScreen"
     WindowStyle="ToolWindow"
     mc:Ignorable="d">
-    <StackPanel wd:Mask.IsShow="{Binding ShowDownLoading}">
+    <StackPanel>
         <wd:CycleLoading
             Width="280"
             LoadTitle="{Binding CurrentDecription}"
@@ -51,6 +51,7 @@
                 <Run Text="MB/秒" />
             </TextBlock>
             <Button
+                IsEnabled="{Binding }"
                 Padding="30,8"
                 HorizontalAlignment="Right"
                 Command="{Binding ToDownloadCommand}"
