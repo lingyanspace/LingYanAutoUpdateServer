@@ -9,7 +9,7 @@
     <Copyright>Copyright © P R C 2024</Copyright>
     <AssemblyVersion>1.0.0.0</AssemblyVersion>
     <FileVersion>1.0.0.0</FileVersion>
-    <Version>1.0.2</Version>
+    <Version>1.0.0</Version>
     <GeneratePackageOnBuild>True</GeneratePackageOnBuild>
     <PackageId>LingYanAutoUpdate</PackageId>
     <Title>LingYanAutoUpdate</Title>
@@ -34,5 +34,8 @@
       <Pack>True</Pack>
       <PackagePath>\</PackagePath>
     </None>
+  </ItemGroup>
+  <ItemGroup>
+    <Folder Include="UpdateAppFloder\" />
   </ItemGroup>
 </Project>
