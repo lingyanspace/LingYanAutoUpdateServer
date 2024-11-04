@@ -51,12 +51,12 @@
                 <Run Text="MB/秒" />
             </TextBlock>
             <Button
-                IsEnabled="{Binding }"
                 Padding="30,8"
                 HorizontalAlignment="Right"
                 Command="{Binding ToDownloadCommand}"
                 Content="立即更新"
                 Foreground="Black"
+                IsEnabled="{Binding ShowDownLoading}"
                 Style="{StaticResource WD.WarningPrimaryButton}" />
         </Grid>
     </StackPanel>
