@@ -37,9 +37,7 @@ namespace LingYanAutoUpdateServer
             ServerVersion = serverVersion;
             int mainClese = 0;
             var name = Path.GetFileNameWithoutExtension(restartApp);
-            Console.WriteLine(name);
             Process[] processes = Process.GetProcessesByName(name);
-            Console.WriteLine(processes.ToArray());
             while (mainClese < 10 && !processes.All(a => a.HasExited))
             {
                 mainClese++;
@@ -162,7 +160,35 @@ namespace LingYanAutoUpdateServer
                 {
                     try
                     {
-                        ZipFile.ExtractToDirectory(updatezipFile, Path.GetDirectoryName(startApp));
+                        //ZipFile.ExtractToDirectory(updatezipFile, Path.GetDirectoryName(startApp));
+                        using (ZipArchive archive = ZipFile.OpenRead(updatezipFile))
+                        {
+                            foreach (ZipArchiveEntry entry in archive.Entries)
+                            {
+                                string destinationPath = Path.Combine(Path.GetDirectoryName(startApp), entry.FullName);
+                                string destinationDirectory = Path.GetDirectoryName(destinationPath);
+                                // 检查是否为目录（在ZIP文件中，目录名以'/'结尾）
+                                if (entry.FullName.EndsWith("/"))
+                                {
+                                    if (!Directory.Exists(destinationPath))
+                                    {
+                                        Directory.CreateDirectory(destinationPath);
+                                    }
+                                }
+                                else
+                                {
+                                    if (!Directory.Exists(destinationDirectory))
+                                    {
+                                        Directory.CreateDirectory(destinationDirectory);
+                                    }
+                                    if (File.Exists(destinationPath))
+                                    {
+                                        File.Delete(destinationPath);
+                                    }
+                                    entry.ExtractToFile(destinationPath);
+                                }
+                            }
+                        }
                         success = true;
                     }
                     catch (Exception ex)

@@ -72,7 +72,11 @@ namespace LingYanAutoUpdateServer
                 var downloadReuslt = await AutoUpdateHelper.DownloadSingleFile(downloadAction, AutoUpdateHelper.NetworkUrl, localUrl);
                 this.CurrentDecription = "解压升级包...";
                 await Task.Delay(200);
-                AutoUpdateHelper.UpdateMainApp(AutoUpdateHelper.StartApp, localUrl, AutoUpdateHelper.LocalVersionUrl, AutoUpdateHelper.ServerVersion);
+                await Task.Run(() =>
+                {
+                    AutoUpdateHelper.UpdateMainApp(AutoUpdateHelper.StartApp, localUrl, AutoUpdateHelper.LocalVersionUrl, AutoUpdateHelper.ServerVersion);
+                });
+
             }
             catch (Exception ex)
             {
