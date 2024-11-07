@@ -50,14 +50,6 @@
                 <Run Text="{Binding DownloadModelInter.DownloadSpeed, StringFormat={}{0:0.00}}" />
                 <Run Text="MB/秒" />
             </TextBlock>
-            <Button
-                Padding="30,8"
-                HorizontalAlignment="Right"
-                Command="{Binding ToDownloadCommand}"
-                Content="立即更新"
-                Foreground="Black"
-                IsEnabled="{Binding ShowDownLoading}"
-                Style="{StaticResource WD.WarningPrimaryButton}" />
         </Grid>
     </StackPanel>
 </wd:Window>

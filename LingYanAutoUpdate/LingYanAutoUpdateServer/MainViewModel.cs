@@ -3,6 +3,7 @@ using System.IO;
 using System.Linq;
 using System.Threading.Tasks;
 using System.Windows;
+using System.Windows.Threading;
 
 namespace LingYanAutoUpdateServer
 {
@@ -36,30 +37,35 @@ namespace LingYanAutoUpdateServer
             get { return _DownloadModelInter; }
             set { _DownloadModelInter = value; this.OnPropertyChanged(); }
         }
-        private bool _ShowDownLoading;
-
-        public bool ShowDownLoading
-        {
-            get { return _ShowDownLoading; }
-            set { _ShowDownLoading = value; this.OnPropertyChanged(); }
-        }
 
         public AsyncRelayCommand ToDownloadCommand { get; set; }
         public MainViewModel()
         {
-            this.ShowDownLoading = true;
             this.DownloadModelInter = new DownloadModel();
             this.ToDownloadCommand = new AsyncRelayCommand(ToDownloadCommandMethod);
             this.LocalVersion = AutoUpdateHelper.LocalVersion;
             this.ServerVersion = AutoUpdateHelper.ServerVersion;
             this.CurrentDecription = "等待更新...";
+            ViewInitEndAction(async () =>
+            {
+                await ToDownloadCommandMethod();
+            });
         }
-
+        public void ViewInitEndAction(Action action, double time = 0.3)
+        {
+            DispatcherTimer startTimer = new DispatcherTimer(DispatcherPriority.Normal);
+            startTimer.Interval = TimeSpan.FromSeconds(0.3); // 设置定时器间隔，这里设置为1秒
+            startTimer.Tick += (sender, e) =>
+            {
+                startTimer.Stop();
+                action.Invoke();
+            };
+            startTimer.Start();
+        }
         private async Task ToDownloadCommandMethod()
         {
             try
             {
-                this.ShowDownLoading = false;
                 this.CurrentDecription = "下载升级包...";
                 var downloadAction = new Action<double, double, double, double>((t1, t2, t3, t4) =>
                 {
@@ -84,7 +90,6 @@ namespace LingYanAutoUpdateServer
             }
             finally
             {
-                this.ShowDownLoading = true;
                 Environment.Exit(0);
             }
         }
