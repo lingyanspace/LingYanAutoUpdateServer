@@ -14,6 +14,6 @@ LingYanAutoUpdateManager.Setting("网络升级压缩包", "升级完成后重启
 //开始启动升级
 LingYanAutoUpdateManager.ToRun();
 //扩展方法----自动获取=》升级完成后重启应用
-LingYanAutoUpdateManager.GetRestartApp()
+LingYanAutoUpdateManager.GetRestartApp();
 ```
 
