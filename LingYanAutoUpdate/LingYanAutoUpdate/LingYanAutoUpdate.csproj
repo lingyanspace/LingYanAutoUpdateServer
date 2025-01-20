@@ -9,7 +9,7 @@
     <Copyright>Copyright © P R C 2024</Copyright>
     <AssemblyVersion>1.0.0.0</AssemblyVersion>
     <FileVersion>1.0.0.0</FileVersion>
-    <Version>1.0.7</Version>
+    <Version>1.0.8</Version>
     <GeneratePackageOnBuild>True</GeneratePackageOnBuild>
     <PackageId>LingYanAutoUpdate</PackageId>
     <Title>LingYanAutoUpdate</Title>
@@ -29,6 +29,8 @@
     <PackageIcon></PackageIcon>
     <PackageTags>不想标记</PackageTags>
     <PackAsTool>False</PackAsTool>
+    <RunAnalyzersDuringBuild>True</RunAnalyzersDuringBuild>
+    <RunAnalyzersDuringLiveAnalysis>True</RunAnalyzersDuringLiveAnalysis>
   </PropertyGroup>
   <ItemGroup>
     <PackageReference Include="Microsoft.CSharp" />
