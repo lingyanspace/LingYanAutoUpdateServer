@@ -19,12 +19,12 @@
    >  LingYanAutoUpdateManager.Setting("测试升级",updateURL, "my.txt", "1.0", "2.0");
 使用极简步骤2：
 //需要升级时直接运行即可
-   ** LingYanAutoUpdateManager.ToRun();** 
+   > LingYanAutoUpdateManager.ToRun(); 
 ```
 
 ```
 注意事项
- **如果是.net framework系列的则直接安装包即可使用；
-如果是.net core系列则需要在安装包之后将虚拟的UpdateAppFloder文件右键找到文件夹位置，直接复制过来即可** 。
+> 如果是.net framework系列的则直接安装包即可使用；
+> 如果是.net core系列则需要在安装包之后将虚拟的UpdateAppFloder文件右键找到文件夹位置，直接复制过来即可。
 ```
 ![输入图片说明](%E4%BC%81%E4%B8%9A%E5%BE%AE%E4%BF%A1%E6%88%AA%E5%9B%BE_17373589821558.png)
