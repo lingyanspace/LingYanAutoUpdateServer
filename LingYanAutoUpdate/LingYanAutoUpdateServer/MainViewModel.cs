@@ -1,4 +1,5 @@
-﻿using System;
+﻿using LingYanAutoUpdateServerServer;
+using System;
 using System.IO;
 using System.Linq;
 using System.Threading.Tasks;
@@ -9,6 +10,14 @@ namespace LingYanAutoUpdateServer
 {
     public class MainViewModel : BasePropertyChanged
     {
+        private string _WindowTitle;
+
+        public string WindowTitle
+        {
+            get { return _WindowTitle; }
+            set { _WindowTitle = value; this.OnPropertyChanged(); }
+        }
+
         private string _LocalVersion;
 
         public string LocalVersion
@@ -37,14 +46,21 @@ namespace LingYanAutoUpdateServer
             get { return _DownloadModelInter; }
             set { _DownloadModelInter = value; this.OnPropertyChanged(); }
         }
+        private ExtractModel _ExtractModelInter;
 
-        public AsyncRelayCommand ToDownloadCommand { get; set; }
+        public ExtractModel ExtractModelInter
+        {
+            get { return _ExtractModelInter; }
+            set { _ExtractModelInter = value; this.OnPropertyChanged(); }
+        }
+
         public MainViewModel()
         {
             this.DownloadModelInter = new DownloadModel();
-            this.ToDownloadCommand = new AsyncRelayCommand(ToDownloadCommandMethod);
-            this.LocalVersion = AutoUpdateHelper.LocalVersion;
-            this.ServerVersion = AutoUpdateHelper.ServerVersion;
+            this.ExtractModelInter = new ExtractModel();
+            this.LocalVersion = App.AutoUpdateModel.LocalVersion;
+            this.ServerVersion = App.AutoUpdateModel.ServerVersion;
+            this.WindowTitle = App.AutoUpdateModel.TitleName ?? "云端在线升级";
             this.CurrentDecription = "等待更新...";
             ViewInitEndAction(async () =>
             {
@@ -74,14 +90,24 @@ namespace LingYanAutoUpdateServer
                     this.DownloadModelInter.TotalDownloadValue = t3;
                     this.DownloadModelInter.DownloadSpeed = t4;
                 });
-                var localUrl = Path.Combine(AppDomain.CurrentDomain.BaseDirectory, AutoUpdateHelper.NetworkUrl.Split('/').LastOrDefault());
-                var downloadReuslt = await AutoUpdateHelper.DownloadSingleFile(downloadAction, AutoUpdateHelper.NetworkUrl, localUrl);
+                var localUrl = Path.Combine(AppDomain.CurrentDomain.BaseDirectory, App.AutoUpdateModel.UpdatePackageZipUrl.Split('/').LastOrDefault());
+                var downloadReuslt = await AutoUpdateHelper.DownloadSingleFile(downloadAction, App.AutoUpdateModel.UpdatePackageZipUrl, localUrl);
                 this.CurrentDecription = "解压升级包...";
-                await Task.Delay(200);
-                await Task.Run(() =>
+                var extractUpdateZip = new Action<string, int, int, double>((str, i1, i2, d) =>
                 {
-                    AutoUpdateHelper.UpdateMainApp(AutoUpdateHelper.StartApp, localUrl, AutoUpdateHelper.LocalVersionUrl, AutoUpdateHelper.ServerVersion);
+                    this.ExtractModelInter.CurrentFileName = str;
+                    this.ExtractModelInter.CurrentFileIndex = i1;
+                    this.ExtractModelInter.CurrentExtractProgress = d;
+                    this.ExtractModelInter.TotalFiles = i2;
                 });
+                var descrptionAction = new Action<string>((str) =>
+                {
+                    this.CurrentDecription = str;
+                });
+                await Task.Run(async() =>
+                {
+                    await AutoUpdateHelper.UpdateMainApp(extractUpdateZip, descrptionAction, App.AutoUpdateModel.RestartApp, localUrl, App.AutoUpdateModel.LocalVersionDir, App.AutoUpdateModel.ServerVersion);
+                });               
 
             }
             catch (Exception ex)

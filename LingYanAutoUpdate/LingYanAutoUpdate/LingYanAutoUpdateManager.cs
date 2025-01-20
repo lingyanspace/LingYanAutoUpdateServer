@@ -1,4 +1,5 @@
-﻿using System;
+﻿using Newtonsoft.Json;
+using System;
 using System.Diagnostics;
 using System.IO;
 using System.Linq;
@@ -7,34 +8,37 @@ namespace LingYanAutoUpdate
 {
     public class LingYanAutoUpdateManager
     {
-        //升级包位置
-        public static string NetworkUrl { get; set; }
-        //升级完成后启动应用
-        public static string StartApp { get; set; }
-        //存放版本文件
-        public static string LocalVersionUrl { get; set; }
-        //当前安装版本
-        public static string LocalVersion { get; set; }
-        //线上最新版本
-        public static string ServerVersion { get; set; }
-        public static void Setting(string networkUrl, string restartApp, string localversionUrl, string localversion, string serverVersion)
+        private static AutoUpdateModel AutoUpdateModelV { get; set; }
+        /// <summary>
+        /// 设置更新信息
+        /// </summary>
+        /// <param name="windowTitle">窗口标题</param>
+        /// <param name="updateZipUrl">升级ZIP压缩包http/https路径</param>
+        /// <param name="localversionDir"></param>
+        /// <param name="localVersion"></param>
+        /// <param name="updateVersion"></param>
+        public static void Setting(string windowTitle, string updateZipUrl, string localversionDir, string localVersion, string updateVersion)
         {
-            NetworkUrl = networkUrl;
-            StartApp = restartApp;
-            LocalVersionUrl = localversionUrl;
-            LocalVersion = localversion;
-            ServerVersion = serverVersion;
-        }
-        public static string GetRestartApp()
-        {
-            return Process.GetCurrentProcess().MainModule.FileName;
+            AutoUpdateModelV = new AutoUpdateModel();
+            AutoUpdateModelV.TitleName = windowTitle;
+            AutoUpdateModelV.UpdatePackageZipUrl = updateZipUrl;
+            AutoUpdateModelV.RestartApp = Process.GetCurrentProcess().MainModule.FileName;
+            AutoUpdateModelV.LocalVersionDir = localversionDir;
+            AutoUpdateModelV.LocalVersion = localVersion;
+            AutoUpdateModelV.ServerVersion = updateVersion;
         }
         public static void ToRun()
         {
-            var args = string.Join(" ", new string[] { NetworkUrl, StartApp, LocalVersionUrl, LocalVersion, ServerVersion });
-            var startApp = Directory.GetFiles(Path.GetDirectoryName(AppDomain.CurrentDomain.BaseDirectory), "LingYanAutoUpdateServer.exe",SearchOption.AllDirectories).FirstOrDefault();
+            var entityValue = JsonConvert.SerializeObject(AutoUpdateModelV);
+            var startApp = Directory.GetFiles(Path.GetDirectoryName(AppDomain.CurrentDomain.BaseDirectory), "LingYanAutoUpdateServer.exe", SearchOption.AllDirectories).FirstOrDefault();
+            var startAppDir = Path.GetDirectoryName(startApp);
+            if (File.Exists(Path.Combine(startAppDir, "LingYanAutoUpdate.Temp")))
+            {
+                File.Delete(Path.Combine(startAppDir, "LingYanAutoUpdate.Temp"));
+            }
+            File.WriteAllText(Path.Combine(startAppDir, "LingYanAutoUpdate.Temp"), entityValue);
             Process process = new Process();//创建进程对象    
-            ProcessStartInfo startInfo = new ProcessStartInfo(startApp, args);
+            ProcessStartInfo startInfo = new ProcessStartInfo(startApp);
             process.StartInfo = startInfo;
             process.Start();
         }

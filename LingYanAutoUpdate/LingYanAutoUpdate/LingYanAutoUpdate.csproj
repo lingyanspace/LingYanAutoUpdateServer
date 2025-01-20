@@ -9,31 +9,36 @@
     <Copyright>Copyright © P R C 2024</Copyright>
     <AssemblyVersion>1.0.0.0</AssemblyVersion>
     <FileVersion>1.0.0.0</FileVersion>
-    <Version>1.0.3</Version>
+    <Version>1.0.5</Version>
     <GeneratePackageOnBuild>True</GeneratePackageOnBuild>
     <PackageId>LingYanAutoUpdate</PackageId>
     <Title>LingYanAutoUpdate</Title>
-    <Authors>司晨</Authors>
-    <Description>针对WPF软件设计的自动升级程序</Description>
+    <Authors>灵燕空间</Authors>
+    <Description>针对WPF软件设计的自动升级程序,全局只需配置一次即可，需要升级时ToRun()就行
+使用极简步骤1：
+//参数1：窗体标题
+//参数2：你的http或https网络升级压缩包
+//参数3：存放本次升级后最新版本的文件
+//参数4：你的本地版本
+//参数5：你的更新版本
+   LingYanAutoUpdateManager.Setting("测试升级",updateURL, "my.txt", "1.0", "2.0");
+使用极简步骤2：
+//需要升级时直接运行即可
+   LingYanAutoUpdateManager.ToRun();</Description>
     <PackageProjectUrl>https://nuget.lingyanspace.com/</PackageProjectUrl>
-    <PackageIcon>lingyan.jpeg</PackageIcon>
+    <PackageIcon></PackageIcon>
     <PackageTags>不想标记</PackageTags>
     <PackAsTool>False</PackAsTool>
   </PropertyGroup>
   <ItemGroup>
     <PackageReference Include="Microsoft.CSharp" />
+    <PackageReference Include="Newtonsoft.Json" />
     <PackageReference Include="System.Data.DataSetExtensions" />
   </ItemGroup>
   <ItemGroup>
     <content Include="UpdateAppFloder\**">
       <CopyToOutputDirectory>Always</CopyToOutputDirectory>
     </content>
-  </ItemGroup>
-  <ItemGroup>
-    <None Include="C:\Users\adminpvc\AppData\Local\Microsoft\VisualStudio\17.0_2e92ab6a\Designer\Cache\11493471614x86DD\Env\Icons\lingyan.jpeg">
-      <Pack>True</Pack>
-      <PackagePath>\</PackagePath>
-    </None>
   </ItemGroup>
   <ItemGroup>
     <Folder Include="UpdateAppFloder\" />

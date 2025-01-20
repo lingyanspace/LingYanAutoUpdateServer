@@ -9,7 +9,7 @@
   </PropertyGroup>
 
   <ItemGroup>
-    <PackageReference Include="LingYanAutoUpdate" />
+    <ProjectReference Include="..\LingYanAutoUpdate\LingYanAutoUpdate.csproj" />
   </ItemGroup>
 
 </Project>

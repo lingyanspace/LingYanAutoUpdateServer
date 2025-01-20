@@ -1,4 +1,7 @@
 ﻿using LingYanAutoUpdateServer;
+using Newtonsoft.Json;
+using System;
+using System.IO;
 using System.Windows;
 
 namespace LingYanAutoUpdateServerServer
@@ -8,11 +11,13 @@ namespace LingYanAutoUpdateServerServer
     /// </summary>
     public partial class App : Application
     {
+        public static AutoUpdateModel AutoUpdateModel { get; set; }
         protected override void OnStartup(StartupEventArgs e)
         {
             base.OnStartup(e);
-            var arguments = e.Args;          
-            AutoUpdateHelper.SettingConfig(arguments[0], arguments[1], arguments[2], arguments[3], arguments[4]);
+            var entityValue = File.ReadAllText(Path.Combine(AppDomain.CurrentDomain.BaseDirectory, "LingYanAutoUpdate.Temp"));
+            AutoUpdateModel = JsonConvert.DeserializeObject<AutoUpdateModel>(entityValue);
+            AutoUpdateHelper.SettingConfig();            
         }
     }
 }
