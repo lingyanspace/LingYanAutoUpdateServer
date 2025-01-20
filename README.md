@@ -2,7 +2,8 @@
 
 ```
 名称：随意填
-源(s): **https://nuget.lingyanspace.com/v3/index.json** 
+源(s):> https://nuget.lingyanspace.com/v3/index.json
+
 ```
 
 ### 使用方法
@@ -15,7 +16,7 @@
 //参数3：存放本次升级后最新版本号的文件,如果只填写文件则默认在当前目录下，如有必要可以直接指定文件路径
 //参数4：你的本地版本
 //参数5：你的更新版本
-    **LingYanAutoUpdateManager.Setting("测试升级",updateURL, "my.txt", "1.0", "2.0");** 
+   >  LingYanAutoUpdateManager.Setting("测试升级",updateURL, "my.txt", "1.0", "2.0");
 使用极简步骤2：
 //需要升级时直接运行即可
    ** LingYanAutoUpdateManager.ToRun();** 
