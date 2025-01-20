@@ -1,19 +1,23 @@
 ### Nuget包管理器可以添加我的---程序包源---实现采用nuget包直接安装应用
 
 ```
-名称：随意填-我以私有化代替
+名称：随意填
 源(s):https://nuget.lingyanspace.com/v3/index.json
 ```
 
 ### 使用方法
 
 ```
-//前期需自行判断是否需要升级，以及升级压缩包地址获取
-//配置参数
-LingYanAutoUpdateManager.Setting("网络升级压缩包", "升级完成后重启应用","版本文件存放位置","当前版本", "升级版本");
-//开始启动升级
-LingYanAutoUpdateManager.ToRun();
-//扩展方法----自动获取=》升级完成后重启应用
-LingYanAutoUpdateManager.GetRestartApp();
+针对WPF软件设计的自动升级程序,全局只需配置一次即可，需要升级时ToRun()就行
+使用极简步骤1：
+//参数1：窗体标题
+//参数2：你的http或https网络升级压缩包
+//参数3：存放本次升级后最新版本的文件
+//参数4：你的本地版本
+//参数5：你的更新版本
+   LingYanAutoUpdateManager.Setting("测试升级",updateURL, "my.txt", "1.0", "2.0");
+使用极简步骤2：
+//需要升级时直接运行即可
+   LingYanAutoUpdateManager.ToRun();
 ```
 
