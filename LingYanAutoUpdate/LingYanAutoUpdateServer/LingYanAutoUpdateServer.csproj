@@ -63,7 +63,7 @@
     <Reference Include="PresentationCore" />
     <Reference Include="PresentationFramework" />
     <Reference Include="WPFDevelopers, Version=1.1.0.2, Culture=neutral, PublicKeyToken=aacc48a71bd48519, processorArchitecture=MSIL">
-      <HintPath>..\packages\WPFDevelopers.1.1.0.2-preview8\lib\net46\WPFDevelopers.dll</HintPath>
+      <HintPath>..\packages\WPFDevelopers.1.1.0.3-preview\lib\net46\WPFDevelopers.dll</HintPath>
     </Reference>
   </ItemGroup>
   <ItemGroup>

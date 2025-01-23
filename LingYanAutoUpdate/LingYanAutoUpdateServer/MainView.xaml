@@ -8,7 +8,7 @@
     xmlns:wd="https://github.com/WPFDevelopersOrg/WPFDevelopers"
     Title="{Binding WindowTitle}"
     Width="600"
-    Height="200"
+    Height="220"
     MinWidth="600"
     FontSize="14"
     ShowInTaskbar="False"
@@ -16,81 +16,105 @@
     WindowStartupLocation="CenterScreen"
     WindowStyle="ToolWindow"
     mc:Ignorable="d">
-    <StackPanel Margin="5">
-        <Grid>
+    <Window.Resources>
+        <Style TargetType="TextBlock">
+            <Setter Property="FontFamily" Value="微软雅黑" />
+            <Setter Property="FontSize" Value="13" />
+        </Style>
+        <Style TargetType="ProgressBar">
+            <Setter Property="Height" Value="20" />
+            <Setter Property="Margin" Value="0,5,0,0" />
+        </Style>
+    </Window.Resources>
+    <DockPanel Margin="10">
+        <StackPanel
+            Margin="0,5"
+            DockPanel.Dock="Top"
+            Orientation="Horizontal">
             <TextBlock
-                Margin="0,5"
                 HorizontalAlignment="Left"
                 VerticalAlignment="Center"
                 FontSize="15"
-                FontWeight="Bold"
                 Foreground="#22A7F2">
-                <Run Text="本地安装版本" />
+                <Run Text="本地安装旧版本-" />
                 <Run Text="{Binding LocalVersion}" />
-                <Run Text="=&gt;线上最新版本" />
+            </TextBlock>
+            <TextBlock
+                Margin="10,0,0,0"
+                HorizontalAlignment="Right"
+                VerticalAlignment="Center"
+                FontSize="15"
+                Foreground="#22A7F2">
+                <Run Text="检测到线上最新版本-" />
                 <Run Text="{Binding ServerVersion}" />
             </TextBlock>
+        </StackPanel>
+        <Grid Margin="0,2" DockPanel.Dock="Bottom">
+            <Grid.ColumnDefinitions>
+                <ColumnDefinition Width="*" />
+                <ColumnDefinition Width="*" />
+            </Grid.ColumnDefinitions>
             <TextBlock
-                HorizontalAlignment="Right"
-                FontSize="15"
-                FontWeight="Bold"
-                Foreground="#22A7F2"
-                Text="{Binding CurrentDecription}" />
-        </Grid>
-        <DockPanel>
-            <TextBlock
-                VerticalAlignment="Center"
-                FontFamily="微软雅黑"
-                FontSize="13"
-                FontWeight="Bold"
-                Text="下载升级包：" />
-            <ProgressBar
-                Height="20"
-                Margin="0,5,0,0"
-                Value="{Binding DownloadModelInter.CuurentProgress}" />
-        </DockPanel>
-        <UniformGrid Margin="0,2" Columns="2">
-            <TextBlock
-                Margin="80,0,0,0"
-                HorizontalAlignment="Left"
-                VerticalAlignment="Center">
-                <Run Text="{Binding DownloadModelInter.DownloadSpeed, StringFormat={}{0:0.00}}" />
-                <Run Text="MB/秒" />
-            </TextBlock>
-            <TextBlock
-                HorizontalAlignment="Right"
-                VerticalAlignment="Center"
-                FontSize="15">
-                <Run Text="{Binding DownloadModelInter.HasDownloadValue, StringFormat={}{0:0.00}}" />
-                <Run Text="MB/" />
-                <Run Text="{Binding DownloadModelInter.TotalDownloadValue, StringFormat={}{0:0.00}}" />
-                <Run Text="MB" />
-            </TextBlock>
-        </UniformGrid>
-        <DockPanel>
-            <TextBlock
-                VerticalAlignment="Center"
-                FontFamily="微软雅黑"
-                FontSize="13"
-                FontWeight="Bold"
-                Text="解压升级包：" />
-            <ProgressBar Height="20" Value="{Binding ExtractModelInter.CurrentExtractProgress}" />
-        </DockPanel>
-        <Grid Margin="0,2">
-            <TextBlock
+                Grid.Column="0"
                 Margin="80,0,0,0"
                 HorizontalAlignment="Left"
                 VerticalAlignment="Center"
                 Text="{Binding ExtractModelInter.CurrentFileName}" />
             <TextBlock
+                Grid.Column="1"
                 HorizontalAlignment="Right"
                 VerticalAlignment="Center"
                 FontSize="15">
                 <Run Text="{Binding ExtractModelInter.CurrentFileIndex}" />
-                <Run Text="当前/" />
+                <Run Text=" 当前/" />
                 <Run Text="{Binding ExtractModelInter.TotalFiles}" />
-                <Run Text="总数" />
+                <Run Text=" 总数" />
             </TextBlock>
         </Grid>
-    </StackPanel>
+        <DockPanel Margin="0,5,0,0" DockPanel.Dock="Bottom">
+            <TextBlock
+                VerticalAlignment="Center"
+                FontWeight="Bold"
+                Text="解压升级包- " />
+            <ProgressBar Value="{Binding ExtractModelInter.CurrentExtractProgress}" />
+        </DockPanel>
+        <Grid Margin="0,2" DockPanel.Dock="Bottom">
+            <Grid.ColumnDefinitions>
+                <ColumnDefinition Width="*" />
+                <ColumnDefinition Width="*" />
+            </Grid.ColumnDefinitions>
+            <TextBlock
+                Grid.Column="0"
+                Margin="80,0,0,0"
+                HorizontalAlignment="Left"
+                VerticalAlignment="Center">
+                <Run Text="{Binding DownloadModelInter.DownloadSpeed, StringFormat={}{0:0.00}}" />
+                <Run Text=" MB/秒" />
+            </TextBlock>
+            <TextBlock
+                Grid.Column="1"
+                HorizontalAlignment="Right"
+                VerticalAlignment="Center"
+                FontSize="15">
+                <Run Text="{Binding DownloadModelInter.HasDownloadValue, StringFormat={}{0:0.00}}" />
+                <Run Text=" MB/" />
+                <Run Text="{Binding DownloadModelInter.TotalDownloadValue, StringFormat={}{0:0.00}}" />
+                <Run Text=" MB" />
+            </TextBlock>
+        </Grid>
+        <DockPanel Margin="0,5,0,0" DockPanel.Dock="Bottom">
+            <TextBlock
+                VerticalAlignment="Center"
+                FontWeight="Bold"
+                Text="下载升级包- " />
+            <ProgressBar Value="{Binding DownloadModelInter.CuurentProgress}" />
+        </DockPanel>
+        <TextBlock
+            Margin="0,5,0,0"
+            HorizontalAlignment="Right"
+            VerticalAlignment="Center"
+            FontSize="14"
+            Foreground="#2C2815"
+            Text="{Binding CurrentDecription}" />
+    </DockPanel>
 </wd:Window>
