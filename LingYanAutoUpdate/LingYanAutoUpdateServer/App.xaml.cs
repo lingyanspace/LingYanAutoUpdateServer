@@ -15,9 +15,13 @@ namespace LingYanAutoUpdateServerServer
         protected override void OnStartup(StartupEventArgs e)
         {
             base.OnStartup(e);
-            var entityValue = File.ReadAllText(Path.Combine(AppDomain.CurrentDomain.BaseDirectory, "LingYanAutoUpdate.Temp"));
-            AutoUpdateModel = JsonConvert.DeserializeObject<AutoUpdateModel>(entityValue);
-            AutoUpdateHelper.SettingConfig();            
+            var entityUrl = Path.Combine(AppDomain.CurrentDomain.BaseDirectory, "LingYanAutoUpdate.Temp");
+            if (File.Exists(entityUrl))
+            {
+                var entityValue = File.ReadAllText(Path.Combine(entityUrl));
+                AutoUpdateModel = JsonConvert.DeserializeObject<AutoUpdateModel>(entityValue);
+                AutoUpdateHelper.SettingConfig();
+            }                    
         }
     }
 }

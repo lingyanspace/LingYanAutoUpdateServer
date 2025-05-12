@@ -1,0 +1,128 @@
+﻿<Window
+    x:Class="LingYanAutoUpdateServer.ToastNotification"
+    xmlns="http://schemas.microsoft.com/winfx/2006/xaml/presentation"
+    xmlns:x="http://schemas.microsoft.com/winfx/2006/xaml"
+    Width="350"
+    Height="130"
+    AllowsTransparency="True"
+    Background="Transparent"
+    MouseLeftButtonDown="Window_MouseLeftButtonDown"
+    Opacity="0"
+    ResizeMode="NoResize"
+    ShowActivated="False"
+    ShowInTaskbar="False"
+    Topmost="True"
+    WindowStyle="None">
+    <Window.Resources>
+        <Storyboard x:Key="FadeOutStoryboard">
+            <DoubleAnimation
+                Storyboard.TargetProperty="Opacity"
+                To="0"
+                Duration="0:0:0.3" />
+        </Storyboard>
+    </Window.Resources>
+    <Window.Triggers>
+        <EventTrigger RoutedEvent="Window.Loaded">
+            <BeginStoryboard>
+                <Storyboard>
+                    <DoubleAnimation
+                        Storyboard.TargetProperty="Opacity"
+                        From="0"
+                        To="1"
+                        Duration="0:0:0.3" />
+                </Storyboard>
+            </BeginStoryboard>
+        </EventTrigger>
+    </Window.Triggers>
+    <Border
+        Margin="8"
+        Padding="18"
+        Background="#F4F8FB">
+        <Border.Effect>
+            <DropShadowEffect
+                BlurRadius="16"
+                Opacity="0.7"
+                ShadowDepth="2"
+                Color="#D0E6F7" />
+        </Border.Effect>
+        <Grid>
+            <Grid.ColumnDefinitions>
+                <ColumnDefinition Width="Auto" />
+                <ColumnDefinition Width="*" />
+                <ColumnDefinition Width="Auto" />
+            </Grid.ColumnDefinitions>
+            <!--  图标  -->
+            <TextBlock
+                x:Name="IconBlock"
+                Grid.Column="0"
+                Margin="0,0,12,0"
+                VerticalAlignment="Center"
+                FontSize="28"
+                Foreground="{Binding IconColor}"
+                Text="{Binding IconText}" />
+            <!--  内容  -->
+            <StackPanel Grid.Column="1" VerticalAlignment="Center">
+                <TextBlock
+                    x:Name="TitleBlock"
+                    FontSize="15"
+                    FontWeight="Bold"
+                    Foreground="#22A7F2" />
+                <TextBlock
+                    x:Name="MsgBlock"
+                    Margin="0,4,0,0"
+                    FontSize="14"
+                    Foreground="#2C3E50"
+                    TextWrapping="Wrap" />
+                <!--  新增：倒计时提示  -->
+                <TextBlock
+                    x:Name="CountdownBlock"
+                    Margin="0,6,0,0"
+                    FontSize="12"
+                    Foreground="#888"
+                    Visibility="Collapsed" />
+            </StackPanel>
+            <!--  优化后的关闭按钮  -->
+            <Button
+                Grid.Column="2"
+                Width="28"
+                Height="28"
+                Margin="12,0,0,0"
+                Padding="0"
+                HorizontalAlignment="Right"
+                VerticalAlignment="Top"
+                Background="#E6F0FA"
+                BorderBrush="#D0E6F7"
+                BorderThickness="1"
+                Click="CloseButton_Click"
+                Cursor="Hand"
+                Style="{x:Null}"
+                ToolTip="关闭">
+                <Button.Template>
+                    <ControlTemplate TargetType="Button">
+                        <Border
+                            Background="{TemplateBinding Background}"
+                            BorderBrush="{TemplateBinding BorderBrush}"
+                            BorderThickness="{TemplateBinding BorderThickness}"
+                            CornerRadius="14">
+                            <ContentPresenter HorizontalAlignment="Center" VerticalAlignment="Center" />
+                        </Border>
+                        <ControlTemplate.Triggers>
+                            <Trigger Property="IsMouseOver" Value="True">
+                                <Setter Property="Background" Value="#22A7F2" />
+                                <Setter Property="BorderBrush" Value="#22A7F2" />
+                                <Setter Property="Foreground" Value="White" />
+                            </Trigger>
+                        </ControlTemplate.Triggers>
+                    </ControlTemplate>
+                </Button.Template>
+                <TextBlock
+                    HorizontalAlignment="Center"
+                    VerticalAlignment="Center"
+                    FontSize="16"
+                    FontWeight="Bold"
+                    Foreground="#22A7F2"
+                    Text="×" />
+            </Button>
+        </Grid>
+    </Border>
+</Window>

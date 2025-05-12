@@ -15,7 +15,7 @@ namespace WPFTest
 
         private void Button_Click(object sender, RoutedEventArgs e)
         {
-            string updateURL = "https://dynamicapi.lingyanspace.com/UnauthorizedFolderHost/SoftFile/灵燕空间_UpdatePackage_16231259799815173.zip";
+            string updateURL = "https://dynamicapi.lingyanspace.com/UnauthorizedFolderHost/UpgradeProxy/44999483368408069/45059113250456581/升级程序自身处理.zip";
             LingYanAutoUpdateManager.Setting("测试升级",updateURL, "my.txt", "1.0", "2.0");
             LingYanAutoUpdateManager.ToRun();
         }

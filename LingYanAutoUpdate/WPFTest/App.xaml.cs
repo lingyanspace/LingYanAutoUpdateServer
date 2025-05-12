@@ -1,5 +1,4 @@
-﻿using System.Configuration;
-using System.Data;
+﻿using LingYanAutoUpdate;
 using System.Windows;
 
 namespace WPFTest
@@ -9,6 +8,11 @@ namespace WPFTest
     /// </summary>
     public partial class App : Application
     {
+        protected override void OnStartup(StartupEventArgs e)
+        {
+            //LingYanAutoUpdateManager.ToCoverOldUpdateExe();
+            base.OnStartup(e);
+        }
     }
 
 }

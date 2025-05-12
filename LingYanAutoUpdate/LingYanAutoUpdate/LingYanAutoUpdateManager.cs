@@ -42,6 +42,26 @@ namespace LingYanAutoUpdate
             process.StartInfo = startInfo;
             process.Start();
         }
+        //public static void ToCoverOldUpdateExe()
+        //{
+        //    //var baseDir = AppDomain.CurrentDomain.BaseDirectory;
+        //    //var newUpdateTempExes = Directory.GetFiles(baseDir, "*.newtemp", SearchOption.AllDirectories);
+        //    //foreach (var tempFile in newUpdateTempExes)
+        //    //{
+        //    //    try
+        //    //    {
+        //    //        var targetFile = tempFile.Substring(0, tempFile.Length - ".newtemp".Length);
+        //    //        if (File.Exists(targetFile))
+        //    //        {
+        //    //            File.Delete(targetFile);
+        //    //        }
+        //    //        File.Move(tempFile, targetFile);
+        //    //    }
+        //    //    catch
+        //    //    {
 
+        //    //    }
+        //    //}           
+        //}
     }
 }

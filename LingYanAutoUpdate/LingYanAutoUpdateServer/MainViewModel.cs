@@ -2,6 +2,7 @@
 using System;
 using System.IO;
 using System.Linq;
+using System.Text;
 using System.Threading.Tasks;
 using System.Windows;
 using System.Windows.Threading;
@@ -58,9 +59,9 @@ namespace LingYanAutoUpdateServer
         {
             this.DownloadModelInter = new DownloadModel();
             this.ExtractModelInter = new ExtractModel();
-            this.LocalVersion = App.AutoUpdateModel.LocalVersion;
-            this.ServerVersion = App.AutoUpdateModel.ServerVersion;
-            this.WindowTitle = App.AutoUpdateModel.TitleName ?? "云端在线升级";
+            this.LocalVersion = App.AutoUpdateModel?.LocalVersion??"0.0";
+            this.ServerVersion = App.AutoUpdateModel?.ServerVersion??"0.1";
+            this.WindowTitle = App.AutoUpdateModel?.TitleName ?? "云端在线升级";
             this.CurrentDecription = "等待更新...";
             ViewInitEndAction(async () =>
             {
@@ -82,41 +83,54 @@ namespace LingYanAutoUpdateServer
         {
             try
             {
-                this.CurrentDecription = "下载升级包...";
+                Application.Current.Dispatcher.Invoke(() => this.CurrentDecription = "下载升级包...");
                 var downloadAction = new Action<double, double, double, double>((t1, t2, t3, t4) =>
                 {
-                    this.DownloadModelInter.CuurentProgress = t1;
-                    this.DownloadModelInter.HasDownloadValue = t2;
-                    this.DownloadModelInter.TotalDownloadValue = t3;
-                    this.DownloadModelInter.DownloadSpeed = t4;
+                    Application.Current.Dispatcher.Invoke(() =>
+                    {
+                        this.DownloadModelInter.CuurentProgress = t1;
+                        this.DownloadModelInter.HasDownloadValue = t2;
+                        this.DownloadModelInter.TotalDownloadValue = t3;
+                        this.DownloadModelInter.DownloadSpeed = t4;
+                    });
                 });
                 var localUrl = Path.Combine(AppDomain.CurrentDomain.BaseDirectory, App.AutoUpdateModel.UpdatePackageZipUrl.Split('/').LastOrDefault());
                 var downloadReuslt = await AutoUpdateHelper.DownloadSingleFile(downloadAction, App.AutoUpdateModel.UpdatePackageZipUrl, localUrl);
-                this.CurrentDecription = "解压升级包...";
+                Application.Current.Dispatcher.Invoke(() => this.CurrentDecription = "解压升级包...");
                 var extractUpdateZip = new Action<string, int, int, double>((str, i1, i2, d) =>
                 {
-                    this.ExtractModelInter.CurrentFileName = str;
-                    this.ExtractModelInter.CurrentFileIndex = i1;
-                    this.ExtractModelInter.CurrentExtractProgress = d;
-                    this.ExtractModelInter.TotalFiles = i2;
+                    Application.Current.Dispatcher.Invoke(() =>
+                    {
+                        this.ExtractModelInter.CurrentFileName = str;
+                        this.ExtractModelInter.CurrentFileIndex = i1;
+                        this.ExtractModelInter.CurrentExtractProgress = d;
+                        this.ExtractModelInter.TotalFiles = i2;
+                    });
                 });
                 var descrptionAction = new Action<string>((str) =>
                 {
-                    this.CurrentDecription = str;
+                    Application.Current.Dispatcher.Invoke(() => this.CurrentDecription = str);
                 });
-                await Task.Run(async() =>
+                await Task.Run(async () =>
                 {
                     await AutoUpdateHelper.UpdateMainApp(extractUpdateZip, descrptionAction, App.AutoUpdateModel.RestartApp, localUrl, App.AutoUpdateModel.LocalVersionDir, App.AutoUpdateModel.ServerVersion);
-                });               
+                });
 
+                // 升级成功通知
+                ToastNotification.Show("升级成功", "通知", true);
+                Application.Current.Dispatcher.Invoke(() =>
+                {
+                    Application.Current.MainWindow?.Close();
+                });
             }
             catch (Exception ex)
             {
-                WPFDevelopers.Controls.MessageBox.Show("升级失败", "通知", MessageBoxButton.OK, MessageBoxImage.Error);
+                // 升级失败通知
+                ToastNotification.Show("升级失败", "通知", false);
             }
             finally
             {
-                Environment.Exit(0);
+                //Environment.Exit(0);
             }
         }
     }
