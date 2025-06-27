@@ -1,30 +1,45 @@
-### Nuget包管理器可以添加我的---程序包源---实现采用nuget包直接安装应用
+# LingYanAutoUpdateServer
 
-```
-名称：随意填
-源(s):> https://nuget.lingyanspace.com/v3/index.json
+#### 描述
+这是一个自动更新程序，专为WPF应用程序设计。它提供了一种简单的方式来实现应用程序的自动升级功能。
 
-```
+#### 软件架构
+该程序基于.NET框架构建，并利用了WPF技术来提供图形界面。它包含一个用于处理自动更新逻辑的核心库和一个用于展示更新过程的用户界面。
 
-### 使用方法
+#### 安装
+1. 如果你使用的是.NET Framework项目，可以直接通过NuGet包安装。
+2. 如果你使用的是.NET Core项目，则需要额外步骤将`UpdateAppFloder`文件夹的内容复制到你的项目中。
 
-```
-针对WPF软件设计的自动升级程序,全局只需配置一次即可，需要升级时ToRun()就行
-使用极简步骤1：
-//参数1：窗体标题
-//参数2：你的http或https网络升级压缩包
-//参数3：存放本次升级后最新版本号的文件,如果只填写文件则默认在当前目录下，如有必要可以直接指定文件路径
-//参数4：你的本地版本
-//参数5：你的更新版本
-   >  LingYanAutoUpdateManager.Setting("测试升级",updateURL, "my.txt", "1.0", "2.0");
-使用极简步骤2：
-//需要升级时直接运行即可
-   > LingYanAutoUpdateManager.ToRun(); 
-```
+##### NuGet包源设置
+- 名称：任意名称
+- 源：https://nuget.lingyanspace.com/v3/index.json
 
-```
-注意事项
-> 如果是.net framework系列的则直接安装包即可使用；
-> 如果是.net core系列则需要在安装包之后将虚拟的UpdateAppFloder文件右键找到文件夹位置，直接复制过来即可。
-```
-![输入图片说明](%E4%BC%81%E4%B8%9A%E5%BE%AE%E4%BF%A1%E6%88%AA%E5%9B%BE_17373589821558.png)
+#### 使用说明
+1. 配置自动更新信息：
+   ```csharp
+   // 参数1：窗体标题
+   // 参数2：升级压缩包的URL
+   // 参数3：存放最新版本号的文件路径
+   // 参数4：本地版本号
+   // 参数5：服务器上的版本号
+   LingYanAutoUpdateManager.Setting("测试升级", updateURL, "my.txt", "1.0", "2.0");
+   ```
+2. 当需要检查并执行更新时调用：
+   ```csharp
+   LingYanAutoUpdateManager.ToRun();
+   ```
+
+#### 注意事项
+- 如果是.NET Framework项目，直接安装NuGet包即可使用。
+- 如果是.NET Core项目，除了安装NuGet包外，还需要手动复制虚拟文件夹`UpdateAppFloder`中的内容到项目的相应位置。
+
+#### 贡献
+欢迎对项目进行贡献。如果您希望添加新功能或修复bug，请提交Pull Request。
+
+#### Gitee特性
+1. 支持多语言Readme文档，如Readme_en.md、Readme_zh.md等。
+2. 更多关于Gitee的信息，请访问[Gitee博客](https://blog.gitee.com)。
+3. 探索更多开源项目，请访问[探索页面](https://gitee.com/explore)。
+4. 查看最具有价值的开源项目，请访问[GVP](https://gitee.com/gvp)。
+5. 获取Gitee使用手册，请访问[帮助中心](https://gitee.com/help)。
+6. 关注最受欢迎的开发者，请访问[Gitee Stars](https://gitee.com/gitee-stars/)。
