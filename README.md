@@ -34,7 +34,8 @@
    ```csharp
    LingYanAutoUpdateManager.ToRun();
    ```
-
+#### 升级包界面
+![输入图片说明](LingYanAutoUpdate/1751870917159.jpg)
 #### 注意事项
 - 如果是.NET Framework项目，直接安装NuGet包即可使用。
 - 如果是.NET Core项目，除了安装NuGet包外，还需要手动复制虚拟文件夹`UpdateAppFloder`中的内容到项目的相应位置。
