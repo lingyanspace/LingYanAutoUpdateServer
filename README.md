@@ -7,7 +7,7 @@
 
 [站长官网](https://www.lingyanspace.com/) 
 
-[B站视频讲解](https://space.bilibili.com/237905456)
+[视频演示](https://www.bilibili.com/video/BV1RaEGz9EwB?spm_id_from=333.788.videopod.sections&vd_source=4e9f2b51092b6853379566144b71b13a)
 
 #### 软件架构
 该程序基于.NET框架构建，并利用了WPF技术来提供图形界面。它包含一个用于处理自动更新逻辑的核心库和一个用于展示更新过程的用户界面。
