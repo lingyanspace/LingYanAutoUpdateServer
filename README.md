@@ -3,6 +3,12 @@
 #### 描述
 这是一个自动更新程序，专为WPF应用程序设计。它提供了一种简单的方式来实现应用程序的自动升级功能。
 
+#### 联系开发者
+
+[站长官网](https://www.lingyanspace.com/) 
+
+[B站视频讲解](https://space.bilibili.com/237905456)
+
 #### 软件架构
 该程序基于.NET框架构建，并利用了WPF技术来提供图形界面。它包含一个用于处理自动更新逻辑的核心库和一个用于展示更新过程的用户界面。
 
@@ -35,11 +41,3 @@
 
 #### 贡献
 欢迎对项目进行贡献。如果您希望添加新功能或修复bug，请提交Pull Request。
-
-#### Gitee特性
-1. 支持多语言Readme文档，如Readme_en.md、Readme_zh.md等。
-2. 更多关于Gitee的信息，请访问[Gitee博客](https://blog.gitee.com)。
-3. 探索更多开源项目，请访问[探索页面](https://gitee.com/explore)。
-4. 查看最具有价值的开源项目，请访问[GVP](https://gitee.com/gvp)。
-5. 获取Gitee使用手册，请访问[帮助中心](https://gitee.com/help)。
-6. 关注最受欢迎的开发者，请访问[Gitee Stars](https://gitee.com/gitee-stars/)。
