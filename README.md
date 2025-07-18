@@ -1,4 +1,4 @@
-# LingYanAutoUpdateServer
+# LingYanAutoUpdate
 
 #### 描述
 这是一个自动更新程序，专为winform,wpf,maui应用程序设计。它提供了一种简单的方式来实现应用程序的自动升级功能。
@@ -42,8 +42,4 @@
 
 #### 贡献
 欢迎对项目进行贡献。如果您希望添加新功能或修复bug，请提交Pull Request。
-
-#### 如有帮助，请开发者一杯奶茶 
-
-![输入图片说明](LingYanAutoUpdate/%E5%BE%AE%E4%BF%A1%E5%9B%BE%E7%89%87_2025-07-07_182155_059.png)
 
